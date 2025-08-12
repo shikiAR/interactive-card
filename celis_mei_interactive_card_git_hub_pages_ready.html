@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Celis｜互動名片</title>
+  <meta name="description" content="Celis 的互動名片｜AI互動設計 • 語音 • Live2D • 多語對話"/>
+  <style>
+    body {margin:0; font-family:'Noto Sans TC', sans-serif; background:linear-gradient(135deg, #1e1f29, #12131a); color:#f4f4f4;}
+    .wrap {max-width:960px; margin:auto; padding:20px;}
+    header {display:flex; align-items:center; gap:16px; margin-bottom:20px;}
+    .avatar {width:70px; height:70px; border-radius:50%; background:linear-gradient(135deg, #ffb6c1, #ff69b4); display:grid; place-items:center; font-size:32px; box-shadow:0 0 15px rgba(255,105,180,0.5);}
+    h1 {margin:0; font-size:26px; color:#ffd1dc;}
+    .subtitle {color:#ccc; font-size:14px;}
+    .card {background:rgba(255,255,255,0.05); border-radius:16px; padding:16px; margin-bottom:16px; box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+    h3 {margin-top:0; color:#ffb6c1;}
+    .chipset {display:flex; flex-wrap:wrap; gap:8px;}
+    .chip {background:rgba(255,182,193,0.15); border-radius:999px; padding:6px 12px; font-size:13px; border:1px solid rgba(255,182,193,0.3);}
+    .links {display:flex; gap:10px; flex-wrap:wrap;}
+    .link {background:rgba(255,182,193,0.15); padding:8px 14px; border-radius:8px; text-decoration:none; color:#fff; border:1px solid rgba(255,182,193,0.3);}
+    .btnrow {display:flex; gap:8px; margin-top:12px;}
+    .btn {background:linear-gradient(135deg, #ffb6c1, #ff69b4); border:none; border-radius:8px; padding:8px 12px; color:#fff; cursor:pointer; font-weight:bold;}
+    footer {margin-top:20px; color:#aaa; font-size:12px; text-align:center;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="avatar">🦊</div>
+      <div>
+        <h1>Celis</h1>
+        <div class="subtitle">AI互動設計 • 語音 • Live2D • 多語對話</div>
+      </div>
+    </header>
+
+    <section class="card">
+      <h3>關於我</h3>
+      <p>我喜歡設計AI互動流程與腳本，觀察不同情境下的自然反應。擅長Prompt設計、對話體驗、語音合成與Live2D動畫，也嘗試過本地模型與Discord Bot開發。</p>
+      <div class="btnrow">
+        <button class="btn" id="btnVcf">下載 vCard</button>
+        <button class="btn" id="btnCopyPitch">複製自我介紹</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>技能</h3>
+      <div class="chipset">
+        <span class="chip">Prompt 設計</span>
+        <span class="chip">對話腳本設計</span>
+        <span class="chip">本地模型嘗試</span>
+        <span class="chip">語音合成</span>
+        <span class="chip">Live2D 動畫</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>興趣</h3>
+      <div class="chipset">
+        <span class="chip">AI互動設計</span>
+        <span class="chip">VR/展場體驗</span>
+        <span class="chip">Discord Bot</span>
+        <span class="chip">攝影 / 繪畫</span>
+        <span class="chip">多語對話</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>聯絡</h3>
+      <div class="links">
+        <a class="link" href="https://github.com/shikiAR" target="_blank">GitHub</a>
+        <a class="link" href="https://x.com/Shikitty_AI" target="_blank">X</a>
+        <a class="link" href="mailto:gastersans052@gmail.com">Email</a>
+        <span class="link" id="copyHandle" style="cursor:pointer">複製聯絡資訊</span>
+      </div>
+    </section>
+
+    <footer>© 2025 Celis</footer>
+  </div>
+
+  <script>
+    const $ = (s)=>document.querySelector(s);
+    const pitch = `我平常會微調一些AI模型，喜歡觀察AI互動反應，也會設計情境腳本與話術，測試不同人格與互動方式。`;
+    const handle = `Celis｜AI互動設計\nGitHub: https://github.com/shikiAR\nX: https://x.com/Shikitty_AI\nMail: gastersans052@gmail.com`;
+
+    function copy(txt){
+      navigator.clipboard.writeText(txt).then(()=>{
+        alert('已複製到剪貼簿');
+      });
+    }
+
+    function downloadVcf(){
+      const vcf = `BEGIN:VCARD\nVERSION:3.0\nN:;Celis;;;\nFN:Celis\nTITLE:AI互動設計\nEMAIL:gastersans052@gmail.com\nURL:https://github.com/shikiAR\nNOTE:AI互動設計｜Live2D｜語音\nEND:VCARD`;
+      const blob = new Blob([vcf], {type:'text/vcard'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'Celis.vcf'; a.click(); URL.revokeObjectURL(a.href);
+    }
+
+    $('#btnCopyPitch').addEventListener('click', ()=> copy(pitch));
+    $('#copyHandle').addEventListener('click', ()=> copy(handle));
+    $('#btnVcf').addEventListener('click', downloadVcf);
+  </script>
+</body>
+</html>
